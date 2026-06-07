@@ -20,7 +20,7 @@ export function LeadModal({ open, credits, onClose }: Props) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = schema.safeParse(form);
     if (!result.success) {
@@ -31,10 +31,26 @@ export function LeadModal({ open, credits, onClose }: Props) {
     }
     setErrors({});
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycby5i-txDYD3hoDgOrlXLBkcyTAZfu7cwxDQpyN515EAWVdj3vIyvTA32EdGPrhgYRhp/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            fullName: form.name,
+            email: form.email,
+            phone: form.phone,
+          }),
+        },
+      );
+    } catch (err) {
+      console.error("Lead submit error", err);
+    } finally {
       setLoading(false);
       setSubmitted(true);
-    }, 900);
+    }
   };
 
   return (
