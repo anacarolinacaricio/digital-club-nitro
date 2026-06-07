@@ -176,7 +176,3 @@
 
 .animate-pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
 
-
-#lovable-badge {
-  display: none !important;
-}
