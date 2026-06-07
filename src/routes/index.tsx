@@ -121,3 +121,7 @@ function Index() {
     </main>
   );
 }
+
+#lovable-badge {
+display: none !important;
+}
