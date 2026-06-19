@@ -77,18 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Club Nitro" },
-      { name: "description", content: "VIP Bonus Gateway captures leads via an interactive mini-game and luxury dark-themed landing page." },
+      { title: "Lovable App" },
+      { name: "description", content: "Lovable Generated Project" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Club Nitro" },
-      { property: "og:description", content: "VIP Bonus Gateway captures leads via an interactive mini-game and luxury dark-themed landing page." },
+      { property: "og:title", content: "Lovable App" },
+      { property: "og:description", content: "Lovable Generated Project" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Club Nitro" },
-      { name: "twitter:description", content: "VIP Bonus Gateway captures leads via an interactive mini-game and luxury dark-themed landing page." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2013164f-58cd-4218-be14-1ac6578b456d/id-preview-bfaa5c4c--a9b4ccc6-30bd-4c5a-bf64-a01258317d44.lovable.app-1780794190525.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2013164f-58cd-4218-be14-1ac6578b456d/id-preview-bfaa5c4c--a9b4ccc6-30bd-4c5a-bf64-a01258317d44.lovable.app-1780794190525.png" },
     ],
     links: [
       {

@@ -17,11 +17,10 @@ interface Props {
 export function LeadModal({ open, credits, onClose }: Props) {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [redirecting, setRedirecting] = useState(false);
-  const [loadingText, setLoadingText] = useState("Verificando seus créditos virtuais...");
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = schema.safeParse(form);
     if (!result.success) {
@@ -32,29 +31,10 @@ export function LeadModal({ open, credits, onClose }: Props) {
     }
     setErrors({});
     setLoading(true);
-    try {
-      fetch(
-        "https://script.google.com/macros/s/AKfycby5i-txDYD3hoDgOrlXLBkcyTAZfu7cwxDQpyN515EAWVdj3vIyvTA32EdGPrhgYRhp/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            fullName: form.name,
-            email: form.email,
-            phone: form.phone,
-          }),
-        },
-      ).catch((err) => console.error("Lead submit error", err));
-    } catch (err) {
-      console.error("Lead submit error", err);
-    }
-    setRedirecting(true);
-    setLoadingText("Verificando seus créditos virtuais...");
-    setTimeout(() => setLoadingText("Direcionando você para a plataforma segura..."), 1200);
     setTimeout(() => {
-      window.location.href = "https://luxbet.sbs";
-    }, 2600);
+      setLoading(false);
+      setSubmitted(true);
+    }, 900);
   };
 
   return (
@@ -82,7 +62,7 @@ export function LeadModal({ open, credits, onClose }: Props) {
               ✕
             </button>
 
-            {!redirecting ? (
+            {!submitted ? (
               <>
                 <div className="text-center mb-6">
                   <div className="text-5xl mb-3">🏆</div>
@@ -137,31 +117,17 @@ export function LeadModal({ open, credits, onClose }: Props) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-10"
+                className="text-center py-6"
               >
-                <div className="flex justify-center mb-6">
-                  <div className="relative w-20 h-20">
-                    <div className="absolute inset-0 rounded-full border-4 border-primary/20" />
-                    <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-primary animate-spin" style={{ boxShadow: "var(--shadow-glow)" }} />
-                    <div className="absolute inset-3 rounded-full bg-primary/10 animate-pulse-glow" />
-                  </div>
-                </div>
-                <motion.p
-                  key={loadingText}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-primary glow-text font-semibold text-lg tracking-wide"
-                >
-                  {loadingText}
-                </motion.p>
-                <div className="mt-6 h-1 w-full overflow-hidden rounded-full bg-primary/10">
-                  <motion.div
-                    initial={{ x: "-100%" }}
-                    animate={{ x: "100%" }}
-                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-                    className="h-full w-1/2 bg-gradient-to-r from-transparent via-primary to-transparent"
-                  />
-                </div>
+                <div className="text-6xl mb-4">✅</div>
+                <h3 className="text-2xl font-bold text-primary glow-text mb-3">
+                  Tudo certo!
+                </h3>
+                <p className="text-foreground/90 leading-relaxed">
+                  Verifique seu <span className="text-primary font-semibold">e-mail</span> e
+                  <span className="text-primary font-semibold"> WhatsApp</span>!
+                  Enviamos a lista secreta com os melhores códigos e bônus ativos do momento.
+                </p>
               </motion.div>
             )}
           </motion.div>
